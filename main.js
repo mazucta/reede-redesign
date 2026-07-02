@@ -24,9 +24,9 @@
       tees_h2: 'Naiste valik', tees_lead: 'Kureeritud jakid, topid ja korsetid — üks stuudio, üks tunne.', tees_all: 'Kõik naistele →', tees_hint: 'Lisa foto siia',
       prod_add: 'Lisa korvi',
       tube_kick: '360° · päris toode, mitte foto', tube_h2: 'Käi toote ümber',
-      tube_lead: 'Keeramine, suum, värvivalik — otse brauseris. Vali oma toon ja vaata iga detaili enne, kui korvi lisad.',
+      tube_lead: 'Keeramine ja suum otse brauseris — vaata iga detaili enne, kui korvi lisad.',
       spec_model: 'Mudel', spec_material: 'Materjal', spec_material_val: '7-kihiline vaher', spec_price_label: 'Hind',
-      tube_add: 'Lisa korvi — €89', tube_hint: 'Lohista mudelit, et keerata ↻', tube_badge: 'Grip',
+      tube_add: 'Lisa korvi', tube_hint: 'Lohista mudelit, et keerata ↻', tube_badge: 'Grip',
       ed_h2: 'Eesti disain,<br>maailma riiulil.',
       ed_p: 'Reede on koht, kus kohalikud tegijad seisavad kõrvuti rahvusvaheliste nimedega. Me ei müü lihtsalt riideid — me kureerime vaadet, mis on korraga tallinlik ja piiritu.',
       ed_link: 'Tutvu disaineritega →',
@@ -49,9 +49,9 @@
       tees_h2: "Women's edit", tees_lead: 'Curated jackets, tops and corsets — one studio, one feeling.', tees_all: 'Shop women →', tees_hint: 'Add photo here',
       prod_add: 'Add to cart',
       tube_kick: '360° · the real product, not a photo', tube_h2: 'Walk around the product',
-      tube_lead: 'Rotate, zoom, pick a colour — right in the browser. Choose your finish and inspect every detail before you add to cart.',
+      tube_lead: 'Rotate and zoom right in the browser — inspect every detail before you add to cart.',
       spec_model: 'Model', spec_material: 'Material', spec_material_val: '7-ply maple', spec_price_label: 'Price',
-      tube_add: 'Add to cart — €89', tube_hint: 'Drag the model to rotate ↻', tube_badge: 'Grip tape',
+      tube_add: 'Add to cart', tube_hint: 'Drag the model to rotate ↻', tube_badge: 'Grip tape',
       ed_h2: 'Estonian design,<br>on the world’s shelf.',
       ed_p: 'Reede is where local makers stand shoulder to shoulder with international names. We don’t just sell clothes — we curate a point of view that’s both Tallinn and boundless.',
       ed_link: 'Meet the designers →',
@@ -74,9 +74,9 @@
       tees_h2: 'Женский образ', tees_lead: 'Кураторские жакеты, топы и корсеты — одна студия, одно настроение.', tees_all: 'Всё женское →', tees_hint: 'Добавьте фото сюда',
       prod_add: 'В корзину',
       tube_kick: '360° · настоящий товар, а не фото', tube_h2: 'Осмотрите товар со всех сторон',
-      tube_lead: 'Вращение, зум, выбор цвета — прямо в браузере. Выберите оттенок и рассмотрите каждую деталь перед покупкой.',
+      tube_lead: 'Вращение и зум прямо в браузере — рассмотрите каждую деталь перед покупкой.',
       spec_model: 'Модель', spec_material: 'Материал', spec_material_val: '7-слойный клён', spec_price_label: 'Цена',
-      tube_add: 'В корзину — €89', tube_hint: 'Тяните модель, чтобы вращать ↻', tube_badge: 'Griptape',
+      tube_add: 'В корзину', tube_hint: 'Тяните модель, чтобы вращать ↻', tube_badge: 'Griptape',
       ed_h2: 'Эстонский дизайн<br>на мировой полке.',
       ed_p: 'Reede — место, где локальные авторы стоят плечом к плечу с международными именами. Мы не просто продаём одежду — мы курируем взгляд, одновременно таллиннский и безграничный.',
       ed_link: 'Познакомиться с дизайнерами →',
@@ -199,13 +199,6 @@
   $$('[data-menu] a').forEach((a) => a.addEventListener('click', closeMenu));
   addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenu(); });
 
-  /* ---------- size selector ---------- */
-  $$('.sizes button:not(:disabled)').forEach((b) =>
-    b.addEventListener('click', () => {
-      $$('.sizes button').forEach((x) => x.classList.remove('is-on'));
-      b.classList.add('is-on');
-    }));
-
   /* ---------- newsletter ---------- */
   const form = $('.nl__form');
   const msg = $('[data-nl-msg]');
@@ -219,7 +212,7 @@
     if (ok) { input.value = ''; }
   });
 
-  /* ---------- 3D skateboard deck: drag-orbit + auto-spin + colourways ---------- */
+  /* ---------- 3D skateboard deck: drag-orbit + auto-spin ---------- */
   const deck = $('[data-deck]');
   if (deck) {
     const obj = $('[data-deck-obj]', deck);
@@ -244,31 +237,6 @@
     if (!reduce) {
       const spin = () => { if (!dragging) { rotY += 0.22; apply(); } requestAnimationFrame(spin); };
       requestAnimationFrame(spin);
-    }
-
-    // colourways change the graphic's sky colour
-    const swatchWrap = $('#swatches');
-    if (swatchWrap) {
-      const CW = [
-        { label: 'Blue', c: '#2536d4' }, { label: 'Reede', c: '#0100ca' },
-        { label: 'Ink', c: '#15171d' }, { label: 'Rust', c: '#b8482f' },
-      ];
-      swatchWrap.innerHTML = '';
-      deck.style.setProperty('--deck-accent', CW[0].c);
-      CW.forEach((cw, i) => {
-        const b = document.createElement('button');
-        b.type = 'button';
-        b.className = 'swatch' + (i === 0 ? ' is-on' : '');
-        b.style.background = cw.c;
-        b.setAttribute('aria-label', 'Värv / Colour: ' + cw.label);
-        b.innerHTML = `<span class="swatch__lbl">${cw.label}</span>`;
-        b.addEventListener('click', () => {
-          deck.style.setProperty('--deck-accent', cw.c);
-          $$('.swatch', swatchWrap).forEach((x) => x.classList.remove('is-on'));
-          b.classList.add('is-on');
-        });
-        swatchWrap.appendChild(b);
-      });
     }
   }
 

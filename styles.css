@@ -279,6 +279,11 @@ h1, h2, h3 { line-height: 1; text-wrap: balance; }
 .tube .kick { margin-bottom: 1rem; }
 .tube .h2 { margin-bottom: 1rem; }
 .tube__lead { color: var(--muted); font-size: var(--fs-lead); margin-bottom: 1.8rem; text-wrap: pretty; }
+.tube__price { display: flex; align-items: baseline; gap: .7rem; margin-bottom: 1.8rem;
+  padding-top: 1.3rem; border-top: 1px solid var(--line); }
+.tube__price-label { font-family: var(--mono); font-size: var(--fs-xs); text-transform: uppercase;
+  letter-spacing: .08em; color: var(--muted); }
+.tube__price .spec__price { font-variation-settings: "wght" 700, "wdth" 100; font-size: 1.5rem; color: var(--blue); }
 
 .swatches { display: flex; gap: .7rem; margin-bottom: 1.8rem; flex-wrap: wrap; }
 .swatch { position: relative; width: 40px; height: 40px; border-radius: 50%;
